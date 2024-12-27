@@ -3,6 +3,7 @@ import JSBI from 'jsbi'
 import { currencyEquals } from '../../utils/currencyEquals'
 import { Currency } from '../currency'
 import { Ether } from '../ether'
+import { Pol } from '../pol'
 import { Fraction } from './fraction'
 import _Big from 'big.js'
 
@@ -44,6 +45,14 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
    */
   public static ether(rawAmount: BigintIsh): CurrencyAmount<Ether> {
     return CurrencyAmount.fromRawAmount(Ether.ETHER, rawAmount)
+  }
+
+  /**
+   * Helper that calls the constructor with the POL currency
+   * @param rawAmount pol amount in wei
+   */
+  public static pol(rawAmount: BigintIsh): CurrencyAmount<Pol> {
+    return CurrencyAmount.fromRawAmount(Pol.POL, rawAmount)
   }
 
   protected constructor(currency: T, numerator: BigintIsh, denominator?: BigintIsh) {
