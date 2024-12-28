@@ -5,6 +5,7 @@ import { BaseCurrency } from './baseCurrency'
  */
 export class Ether extends BaseCurrency {
   public readonly isEther: true = true
+  public readonly isPol: false = false
   public readonly isToken: false = false
 
   /**

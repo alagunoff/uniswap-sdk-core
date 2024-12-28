@@ -8,6 +8,7 @@ import { BaseCurrency } from './baseCurrency'
  */
 export class Token extends BaseCurrency {
   public readonly isEther: false = false
+  public readonly isPol: false = false
   public readonly isToken: true = true
 
   public readonly chainId: ChainId | number

@@ -19,7 +19,7 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
   /**
    * Returns a new currency amount instance from the
    * @param currency the currency in the amount
-   * @param rawAmount the raw token or ether amount
+   * @param rawAmount the raw token or ether amount or pol amount
    */
   public static fromRawAmount<T extends Currency>(currency: T, rawAmount: BigintIsh): CurrencyAmount<T> {
     return new CurrencyAmount(currency, rawAmount)

@@ -1,12 +1,13 @@
 import invariant from 'tiny-invariant'
 
 /**
- * A currency is any fungible financial instrument on Ethereum, including Ether and all ERC20 tokens.
+ * A currency is any fungible financial instrument on Ethereum and Polygon, including Ether, POL and all ERC20 tokens.
  *
- * The only instance of the base class `Currency` is Ether.
+ * The only instance of the base class `Currency` is Ether or POL.
  */
 export abstract class BaseCurrency {
   public abstract readonly isEther: boolean
+  public abstract readonly isPol: boolean
   public abstract readonly isToken: boolean
 
   public readonly decimals: number
@@ -14,7 +15,7 @@ export abstract class BaseCurrency {
   public readonly name?: string
 
   /**
-   * Constructs an instance of the base class `Currency`. The only instance of the base class `Currency` is `Currency.ETHER`.
+   * Constructs an instance of the base class `Currency`. The only instance of the base class `Currency` is `Currency.ETHER` or `Currency.POL`.
    * @param decimals decimals of the currency
    * @param symbol symbol of the currency
    * @param name of the currency

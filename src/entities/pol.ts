@@ -1,10 +1,11 @@
 import { BaseCurrency } from './baseCurrency'
 
 /**
- * Represents the currency Pol
+ * Represents the currency POL
  */
 export class Pol extends BaseCurrency {
-  public readonly isEther: true = true
+  public readonly isEther: false = false
+  public readonly isPol: true = true
   public readonly isToken: false = false
 
   /**
@@ -12,7 +13,7 @@ export class Pol extends BaseCurrency {
    * @protected
    */
   protected constructor() {
-    super(18, 'POL', 'Pol')
+    super(18, 'POL', 'POL')
   }
 
   /**

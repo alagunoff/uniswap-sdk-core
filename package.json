@@ -21,17 +21,16 @@
     "prepublishOnly": "tsdx build"
   },
   "dependencies": {
-    "@ethersproject/address": "^5.0.2",
-    "big.js": "^5.2.2",
-    "decimal.js-light": "^2.5.0",
-    "jsbi": "^3.1.4",
-    "tiny-invariant": "^1.1.0",
-    "toformat": "^2.0.0"
+    "@ethersproject/address": "5.0.2",
+    "big.js": "5.2.2",
+    "decimal.js-light": "2.5.0",
+    "jsbi": "3.1.4",
+    "tiny-invariant": "1.1.0",
+    "toformat": "2.0.0"
   },
   "devDependencies": {
-    "@types/big.js": "^4.0.5",
-    "@types/jest": "^24.0.25",
-    "tsdx": "^0.14.1"
+    "@types/big.js": "4.0.5",
+    "tsdx": "0.14.1"
   },
   "engines": {
     "node": ">=10"
