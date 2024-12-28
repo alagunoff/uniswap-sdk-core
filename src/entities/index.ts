@@ -1,6 +1,6 @@
-export * from './fractions'
+export * from './fractions';
 
-export * from './currency'
-export * from './ether'
-export * from './pol'
-export * from './token'
+export * from './currency';
+export * from './ether';
+export * from './pol';
+export * from './token';

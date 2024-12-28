@@ -1,7 +1,7 @@
 {
   "name": "uniswap-sdk-core",
   "license": "MIT",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0",
   "description": "⚒️ An SDK for building applications on top of Uniswap V3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
+    "prettier:fix": "prettier . --write --ignore-unknown",
     "build": "tsdx build",
     "prepublishOnly": "tsdx build"
   },
@@ -32,11 +33,11 @@
   },
   "devDependencies": {
     "@types/big.js": "4.0.5",
+    "prettier": "3.4.2",
     "tsdx": "0.14.1"
   },
   "prettier": {
-    "printWidth": 120,
-    "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "endOfLine": "auto"
   }
 }

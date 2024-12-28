@@ -1,16 +1,22 @@
-import { Currency } from '../entities/currency'
+import { Currency } from '../entities/currency';
 
 /**
  * Compares two currencies for equality
  */
-export function currencyEquals(currencyA: Currency, currencyB: Currency): boolean {
+export function currencyEquals(
+  currencyA: Currency,
+  currencyB: Currency,
+): boolean {
   if (currencyA.isToken && currencyB.isToken) {
-    return currencyA.equals(currencyB)
+    return currencyA.equals(currencyB);
   } else if (currencyA.isToken) {
-    return false
+    return false;
   } else if (currencyB.isToken) {
-    return false
+    return false;
   } else {
-    return currencyA.isEther === currencyB.isEther || currencyA.isPol === currencyB.isPol
+    return (
+      currencyA.isEther === currencyB.isEther ||
+      currencyA.isPol === currencyB.isPol
+    );
   }
 }

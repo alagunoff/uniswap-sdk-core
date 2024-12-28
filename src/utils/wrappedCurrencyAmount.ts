@@ -1,6 +1,6 @@
-import { ChainId } from '../constants'
-import { Currency, CurrencyAmount, Token } from '../entities'
-import { wrappedCurrency } from './wrappedCurrency'
+import { ChainId } from '../constants';
+import { Currency, CurrencyAmount, Token } from '../entities';
+import { wrappedCurrency } from './wrappedCurrency';
 
 /**
  * Given a currency amount and a chain ID, returns the equivalent representation as a wrapped token amount.
@@ -9,11 +9,11 @@ import { wrappedCurrency } from './wrappedCurrency'
  */
 export function wrappedCurrencyAmount(
   currencyAmount: CurrencyAmount<Currency>,
-  chainId: ChainId
+  chainId: ChainId,
 ): CurrencyAmount<Token> {
   return CurrencyAmount.fromFractionalAmount(
     wrappedCurrency(currencyAmount.currency, chainId),
     currencyAmount.numerator,
-    currencyAmount.denominator
-  )
+    currencyAmount.denominator,
+  );
 }

@@ -1,28 +1,31 @@
-import invariant from 'tiny-invariant'
-import JSBI from 'jsbi'
-import { currencyEquals } from '../../utils/currencyEquals'
-import { Currency } from '../currency'
-import { Ether } from '../ether'
-import { Pol } from '../pol'
-import { Fraction } from './fraction'
-import _Big from 'big.js'
+import invariant from 'tiny-invariant';
+import JSBI from 'jsbi';
+import { currencyEquals } from '../../utils/currencyEquals';
+import { Currency } from '../currency';
+import { Ether } from '../ether';
+import { Pol } from '../pol';
+import { Fraction } from './fraction';
+import _Big from 'big.js';
 
-import toFormat from 'toformat'
-import { BigintIsh, Rounding, MaxUint256 } from '../../constants'
+import toFormat from 'toformat';
+import { BigintIsh, Rounding, MaxUint256 } from '../../constants';
 
-const Big = toFormat(_Big)
+const Big = toFormat(_Big);
 
 export class CurrencyAmount<T extends Currency> extends Fraction {
-  public readonly currency: T
-  public readonly decimalScale: JSBI
+  public readonly currency: T;
+  public readonly decimalScale: JSBI;
 
   /**
    * Returns a new currency amount instance from the
    * @param currency the currency in the amount
    * @param rawAmount the raw token or ether amount or pol amount
    */
-  public static fromRawAmount<T extends Currency>(currency: T, rawAmount: BigintIsh): CurrencyAmount<T> {
-    return new CurrencyAmount(currency, rawAmount)
+  public static fromRawAmount<T extends Currency>(
+    currency: T,
+    rawAmount: BigintIsh,
+  ): CurrencyAmount<T> {
+    return new CurrencyAmount(currency, rawAmount);
   }
 
   /**
@@ -34,9 +37,9 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
   public static fromFractionalAmount<T extends Currency>(
     currency: T,
     numerator: BigintIsh,
-    denominator: BigintIsh
+    denominator: BigintIsh,
   ): CurrencyAmount<T> {
-    return new CurrencyAmount(currency, numerator, denominator)
+    return new CurrencyAmount(currency, numerator, denominator);
   }
 
   /**
@@ -44,7 +47,7 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
    * @param rawAmount ether amount in wei
    */
   public static ether(rawAmount: BigintIsh): CurrencyAmount<Ether> {
-    return CurrencyAmount.fromRawAmount(Ether.ETHER, rawAmount)
+    return CurrencyAmount.fromRawAmount(Ether.ETHER, rawAmount);
   }
 
   /**
@@ -52,57 +55,86 @@ export class CurrencyAmount<T extends Currency> extends Fraction {
    * @param rawAmount pol amount in wei
    */
   public static pol(rawAmount: BigintIsh): CurrencyAmount<Pol> {
-    return CurrencyAmount.fromRawAmount(Pol.POL, rawAmount)
+    return CurrencyAmount.fromRawAmount(Pol.POL, rawAmount);
   }
 
-  protected constructor(currency: T, numerator: BigintIsh, denominator?: BigintIsh) {
-    super(numerator, denominator)
-    invariant(JSBI.lessThanOrEqual(this.quotient, MaxUint256), 'AMOUNT')
-    this.currency = currency
-    this.decimalScale = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(currency.decimals))
+  protected constructor(
+    currency: T,
+    numerator: BigintIsh,
+    denominator?: BigintIsh,
+  ) {
+    super(numerator, denominator);
+    invariant(JSBI.lessThanOrEqual(this.quotient, MaxUint256), 'AMOUNT');
+    this.currency = currency;
+    this.decimalScale = JSBI.exponentiate(
+      JSBI.BigInt(10),
+      JSBI.BigInt(currency.decimals),
+    );
   }
 
   public add(other: CurrencyAmount<T>): CurrencyAmount<T> {
-    invariant(currencyEquals(this.currency, other.currency), 'CURRENCY')
-    const added = super.add(other)
-    return CurrencyAmount.fromFractionalAmount(this.currency, added.numerator, added.denominator)
+    invariant(currencyEquals(this.currency, other.currency), 'CURRENCY');
+    const added = super.add(other);
+    return CurrencyAmount.fromFractionalAmount(
+      this.currency,
+      added.numerator,
+      added.denominator,
+    );
   }
 
   public subtract(other: CurrencyAmount<T>): CurrencyAmount<T> {
-    invariant(currencyEquals(this.currency, other.currency), 'CURRENCY')
-    const subtracted = super.subtract(other)
-    return CurrencyAmount.fromFractionalAmount(this.currency, subtracted.numerator, subtracted.denominator)
+    invariant(currencyEquals(this.currency, other.currency), 'CURRENCY');
+    const subtracted = super.subtract(other);
+    return CurrencyAmount.fromFractionalAmount(
+      this.currency,
+      subtracted.numerator,
+      subtracted.denominator,
+    );
   }
 
   public multiply(other: Fraction | BigintIsh): CurrencyAmount<T> {
-    const multiplied = super.multiply(other)
-    return CurrencyAmount.fromFractionalAmount(this.currency, multiplied.numerator, multiplied.denominator)
+    const multiplied = super.multiply(other);
+    return CurrencyAmount.fromFractionalAmount(
+      this.currency,
+      multiplied.numerator,
+      multiplied.denominator,
+    );
   }
 
   public divide(other: Fraction | BigintIsh): CurrencyAmount<T> {
-    const divided = super.divide(other)
-    return CurrencyAmount.fromFractionalAmount(this.currency, divided.numerator, divided.denominator)
+    const divided = super.divide(other);
+    return CurrencyAmount.fromFractionalAmount(
+      this.currency,
+      divided.numerator,
+      divided.denominator,
+    );
   }
 
   public toSignificant(
     significantDigits: number = 6,
     format?: object,
-    rounding: Rounding = Rounding.ROUND_DOWN
+    rounding: Rounding = Rounding.ROUND_DOWN,
   ): string {
-    return super.divide(this.decimalScale).toSignificant(significantDigits, format, rounding)
+    return super
+      .divide(this.decimalScale)
+      .toSignificant(significantDigits, format, rounding);
   }
 
   public toFixed(
     decimalPlaces: number = this.currency.decimals,
     format?: object,
-    rounding: Rounding = Rounding.ROUND_DOWN
+    rounding: Rounding = Rounding.ROUND_DOWN,
   ): string {
-    invariant(decimalPlaces <= this.currency.decimals, 'DECIMALS')
-    return super.divide(this.decimalScale).toFixed(decimalPlaces, format, rounding)
+    invariant(decimalPlaces <= this.currency.decimals, 'DECIMALS');
+    return super
+      .divide(this.decimalScale)
+      .toFixed(decimalPlaces, format, rounding);
   }
 
   public toExact(format: object = { groupSeparator: '' }): string {
-    Big.DP = this.currency.decimals
-    return new Big(this.quotient.toString()).div(this.decimalScale.toString()).toFormat(format)
+    Big.DP = this.currency.decimals;
+    return new Big(this.quotient.toString())
+      .div(this.decimalScale.toString())
+      .toFormat(format);
   }
 }

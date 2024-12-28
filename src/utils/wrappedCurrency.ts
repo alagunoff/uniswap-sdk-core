@@ -1,6 +1,6 @@
-import invariant from 'tiny-invariant'
-import { ChainId } from '../constants'
-import { Currency, Token, WETH9 } from '../entities'
+import invariant from 'tiny-invariant';
+import { ChainId } from '../constants';
+import { Currency, Token, WETH9 } from '../entities';
 
 /**
  * Given a currency which can be Ether, POL or a token, return wrapped ether for ether or pol and the token for the token
@@ -9,9 +9,9 @@ import { Currency, Token, WETH9 } from '../entities'
  */
 export function wrappedCurrency(currency: Currency, chainId: ChainId): Token {
   if (currency.isToken) {
-    invariant(currency.chainId === chainId, 'CHAIN_ID')
-    return currency
+    invariant(currency.chainId === chainId, 'CHAIN_ID');
+    return currency;
   }
-  if (currency.isEther || currency.isPol) return WETH9[chainId]
-  throw new Error('CURRENCY')
+  if (currency.isEther || currency.isPol) return WETH9[chainId];
+  throw new Error('CURRENCY');
 }
