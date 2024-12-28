@@ -1,5 +1,5 @@
 {
-  "name": "@uniswap/sdk-core",
+  "name": "uniswap-sdk-core",
   "license": "MIT",
   "version": "3.0.0-alpha.1",
   "description": "⚒️ An SDK for building applications on top of Uniswap V3",
@@ -14,10 +14,12 @@
     "ethereum"
   ],
   "module": "dist/sdk-core.esm.js",
+  "engines": {
+    "node": "16.20.2"
+  },
   "scripts": {
-    "build": "tsdx build",
     "start": "tsdx watch",
-    "test": "tsdx test",
+    "build": "tsdx build",
     "prepublishOnly": "tsdx build"
   },
   "dependencies": {
@@ -31,9 +33,6 @@
   "devDependencies": {
     "@types/big.js": "4.0.5",
     "tsdx": "0.14.1"
-  },
-  "engines": {
-    "node": ">=10"
   },
   "prettier": {
     "printWidth": 120,
